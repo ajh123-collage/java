@@ -3,6 +3,39 @@ package uk.minersonline.java_college.activity15;
 import java.util.Scanner;
 
 public class Activity15Main {
+    private static void doCommand(Player player, Player other) {
+        Scanner scanner = new Scanner(System.in);
+        boolean validCommand = false;
+        while (!validCommand) {
+            String command = scanner.nextLine();
+            if (command.equals("p")) {
+                validCommand = true;
+                player.punch(other);
+            } else if (command.equals("k")) {
+                validCommand = true;
+                player.kick(other);
+            }
+
+            if (!validCommand) {
+                System.out.println("Invalid command \"" + command + "\"");
+                System.out.println("You can enter the following commands:");
+                System.out.println("1. \"p\" for punching.");
+                System.out.println("2. \"k\" for kicking.");
+            }
+
+            System.out.println(other.getName()+" now has "+other.getHealth()+" health.");
+            System.out.println(player.getName()+" has "+player.getHealth()+" health.");
+        }
+    }
+
+    private static boolean checkWin(Player player, Player other) {
+        if (other.getHealth() <= 0) {
+            System.out.println(player.getName() + " has won the game!");
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -14,83 +47,28 @@ public class Activity15Main {
         String name2 = scanner.nextLine();
         Player player2 = new Player(name2);
 
-        int currentPlayer = 1;
+        Player currentPlayer = player1;
+        Player nextPlayer = player2;
         boolean won = false;
 
         while (!won) {
-            // <great>
-            String currentName = "";
-            if (currentPlayer == 1) {
-                currentName = player1.getName();
-            } else {
-                currentName = player2.getName();
-            }
-
-            System.out.println("It is "+currentName+"'s turn.");
+            System.out.println("It is "+currentPlayer.getName()+"'s turn.");
             System.out.println("You can enter the following commands:");
             System.out.println("1. \"p\" for punching.");
             System.out.println("2. \"k\" for kicking.");
-            // </great>
 
-            // <command detection>
-            boolean validCommand = false;
-            while (!validCommand) {
-                String command = scanner.nextLine();
-                if (currentPlayer == 1) {
-                    if (command.equals("p")) {
-                        validCommand = true;
-                        player1.punch(player2);
-                    } else if (command.equals("k")) {
-                        validCommand = true;
-                        player1.kick(player2);
-                    }
-                } else {
-                    if (command.equals("p")) {
-                        validCommand = true;
-                        player2.punch(player1);
-                    } else if (command.equals("k")) {
-                        validCommand = true;
-                        player2.kick(player1);
-                    }
-                }
-                if (!validCommand) {
-                    System.out.println("Invalid command \"" + command + "\"");
-                    System.out.println("You can enter the following commands:");
-                    System.out.println("1. \"p\" for punching.");
-                    System.out.println("2. \"k\" for kicking.");
-                }
+            doCommand(currentPlayer, nextPlayer);
+            won = checkWin(currentPlayer, nextPlayer);
 
-                if (currentPlayer == 1) {
-                    System.out.println(player2.getName()+" now has "+player2.getHealth()+" health.");
-                } else {
-                    System.out.println(player1.getName()+" now has "+player1.getHealth()+" health.");
-                }
-            }
-            // </command detection>
-
-            // <wim detection>
-            if (currentPlayer == 1) {
-                if (player2.getHealth() < 0) {
-                    System.out.println(player1.getName() + " has won the game!");
-                    won = true;
-                }
-            } else {
-                if (player1.getHealth() < 0) {
-                    System.out.println(player2.getName() + " has won the game!");
-                    won = true;
-                }
-            }
-            // </win detection>
-
-            // <next turn>
             if (!won) {
-                if (currentPlayer == 1) {
-                    currentPlayer = 2;
+                if (currentPlayer == player1) {
+                    currentPlayer = player2;
+                    nextPlayer = player1;
                 } else {
-                    currentPlayer = 1;
+                    currentPlayer = player1;
+                    nextPlayer = player2;
                 }
             }
-            // </next turn>
         }
     }
 }
