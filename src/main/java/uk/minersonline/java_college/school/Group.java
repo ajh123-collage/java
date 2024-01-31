@@ -3,7 +3,7 @@ package uk.minersonline.java_college.school;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class {
+public class Group {
     private final List<Student> students = new ArrayList<>();
 
     public List<Student> getStudents() {

@@ -5,7 +5,7 @@ public class SchoolMain {
         Student student1 = new Student("Bob Marley");
         Student student2 = new Student("Ebenezer Scrooge");
 
-        Class group = new Class();
+        Group group = new Group();
         group.addStudent(student1);
         group.addStudent(student2);
 

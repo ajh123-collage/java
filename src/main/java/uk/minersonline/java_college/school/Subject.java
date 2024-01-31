@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Subject {
     private final String name;
-    private final List<Class> classes = new ArrayList<>();
+    private final List<Group> groups = new ArrayList<>();
 
     public Subject(String name) {
         this.name = name;
@@ -15,11 +15,11 @@ public class Subject {
         return name;
     }
 
-    public List<Class> getClasses() {
-        return classes;
+    public List<Group> getGroups() {
+        return groups;
     }
 
-    public void addClass(Class subject) {
-        classes.add(subject);
+    public void addClass(Group subject) {
+        groups.add(subject);
     }
 }
