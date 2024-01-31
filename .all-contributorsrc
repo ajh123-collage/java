@@ -1,6 +1,6 @@
 {
-  "projectName": "base-repository",
-  "projectOwner": "Miners-Online",
+  "projectName": "java",
+  "projectOwner": "ajh123-collage",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -16,7 +16,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/41990982?v=4",
       "profile": "https://minersonline.uk/",
       "contributions": [
-        "doc"
+        "doc",
+        "code"
       ]
     },
     {
