@@ -1,6 +1,5 @@
 package uk.minersonline.java_college.activity15;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
@@ -11,6 +10,10 @@ public class Player {
         this.name = name;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -19,14 +22,16 @@ public class Player {
         return name;
     }
 
-    public void punch(Player other) {
+    public DamageAction punch() {
         int damage = ThreadLocalRandom.current().nextInt(0, 5);
-        other.health -= damage;
-        System.out.println(this.name+" punched "+other.name+" for "+damage+" damage");
+        return new DamageAction("punch", this, damage);
     }
 
-    public void kick(Player other) {
-        other.health -= 2;
-        System.out.println(this.name+" kicked "+other.name+" for 2 damage");
+    public DamageAction kick() {
+        return new DamageAction("kick", this, 2);
+    }
+
+    public void calculateAction(Action action) {
+        action.performAction(this);
     }
 }

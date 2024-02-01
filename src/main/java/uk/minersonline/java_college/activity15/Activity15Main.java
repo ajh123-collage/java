@@ -3,17 +3,18 @@ package uk.minersonline.java_college.activity15;
 import java.util.Scanner;
 
 public class Activity15Main {
-    private static void doCommand(Player player, Player other) {
+    private static Action doCommand(Player player) {
         Scanner scanner = new Scanner(System.in);
         boolean validCommand = false;
+        Action action = null;
         while (!validCommand) {
             String command = scanner.nextLine();
             if (command.equals("p")) {
                 validCommand = true;
-                player.punch(other);
+                action = player.punch();
             } else if (command.equals("k")) {
                 validCommand = true;
-                player.kick(other);
+                action = player.kick();
             }
 
             if (!validCommand) {
@@ -22,10 +23,8 @@ public class Activity15Main {
                 System.out.println("1. \"p\" for punching.");
                 System.out.println("2. \"k\" for kicking.");
             }
-
-            System.out.println(other.getName()+" now has "+other.getHealth()+" health.");
-            System.out.println(player.getName()+" has "+player.getHealth()+" health.");
         }
+        return action;
     }
 
     private static boolean checkWin(Player player, Player other) {
@@ -50,23 +49,21 @@ public class Activity15Main {
 
         boolean won = false;
         int turn = 0;
+        Action action = null;
 
         while (!won) {
             Player currentPlayer = players[turn];
-            System.out.println("It is "+currentPlayer.getName()+"'s turn.");
-            System.out.println("You can enter the following commands:");
-            System.out.println("1. \"p\" for punching.");
-            System.out.println("2. \"k\" for kicking.");
-
-            int next = turn + 1;
-            if (next >= players.length) {
-                next = 0;
+            if (action != null) {
+                currentPlayer.calculateAction(action);
+                won = checkWin(action.getSender(), currentPlayer);
             }
-
-            doCommand(currentPlayer, players[next]);
-            won = checkWin(currentPlayer, players[next]);
-
             if (!won) {
+                System.out.println("It is "+currentPlayer.getName()+"'s turn.");
+                System.out.println("You can enter the following commands:");
+                System.out.println("1. \"p\" for punching.");
+                System.out.println("2. \"k\" for kicking.");
+
+                action = doCommand(currentPlayer);
                 turn = 1 - turn;
             }
         }
