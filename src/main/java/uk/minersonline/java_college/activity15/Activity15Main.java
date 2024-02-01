@@ -49,13 +49,13 @@ public class Activity15Main {
 
         boolean won = false;
         int turn = 0;
-        Action action = null;
+        Action lastPlayerAction = null;
 
         while (!won) {
             Player currentPlayer = players[turn];
-            if (action != null) {
-                currentPlayer.calculateAction(action);
-                won = checkWin(action.getSender(), currentPlayer);
+            if (lastPlayerAction != null) {
+                currentPlayer.calculateAction(lastPlayerAction);
+                won = checkWin(lastPlayerAction.getSender(), currentPlayer);
             }
             if (!won) {
                 System.out.println("It is "+currentPlayer.getName()+"'s turn.");
@@ -63,7 +63,7 @@ public class Activity15Main {
                 System.out.println("1. \"p\" for punching.");
                 System.out.println("2. \"k\" for kicking.");
 
-                action = doCommand(currentPlayer);
+                lastPlayerAction = doCommand(currentPlayer);
                 turn = 1 - turn;
             }
         }
