@@ -1,4 +1,4 @@
-package uk.minersonline.java_college.school;
+package uk.minersonline.java_college.starters.school;
 
 public class Student {
     private final String name;

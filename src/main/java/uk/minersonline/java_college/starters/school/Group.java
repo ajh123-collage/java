@@ -1,4 +1,4 @@
-package uk.minersonline.java_college.school;
+package uk.minersonline.java_college.starters.school;
 
 import java.util.ArrayList;
 import java.util.List;
